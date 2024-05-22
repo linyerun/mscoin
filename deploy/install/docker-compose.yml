@@ -20,6 +20,7 @@ services:
       --collation-server=utf8mb4_general_ci
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
+  # 自定义配置文件失败
   Redis:
     container_name: redis6
     image: redis:${REDIS_VERSION}
@@ -29,7 +30,7 @@ services:
       - ${REDIS_CONF_DIR}/redis.conf:/etc/redis/redis.conf
     ports:
       - ${REDIS_PORT}:6379
-    command: redis-server /etc/redis/redis.conf
+    command: redis-server
   Etcd:
     container_name: etcd3
     image: bitnami/etcd:${ETCD_VERSION}

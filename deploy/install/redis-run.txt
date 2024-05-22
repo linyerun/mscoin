@@ -1,0 +1,4 @@
+# 自定义配置文件失败
+docker run --name redis6 -d -p 6379:6379 \
+ -v /docker/redis/data:/data -v /home/go-project/mscoin/deploy/install/redis.conf:/etc/redis/redis.conf 4b1123a829a1 \
+ redis-server /etc/redis/redis.conf
