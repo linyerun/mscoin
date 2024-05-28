@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-	"github.com/golang-jwt/jwt/v4"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 	"mscoin/app/usercenter/model"
@@ -44,7 +43,7 @@ func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	}
 
 	// 生成token
-	token, err := l.getJwtToken(l.svcCtx.Config.JWT.AccessSecret, time.Now().Unix(), l.svcCtx.Config.JWT.AccessExpired, member.Id)
+	token, err := tool.GenerateToken(l.svcCtx.Config.JWT.AccessSecret, time.Now().Unix(), l.svcCtx.Config.JWT.AccessExpired, member.Id)
 	if err != nil {
 		return nil, errors.Wrapf(xerr.NewCommonError(xerr.ServerError, "系统异常,登录失败"), "token generate err: %+v", err)
 	}
@@ -72,14 +71,4 @@ func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 		SuperPartner:  member.SuperPartner,
 		LoginCount:    int32(loginCount),
 	}, nil
-}
-
-func (l *LoginLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (string, error) {
-	claims := make(jwt.MapClaims)
-	claims["exp"] = iat + seconds
-	claims["iat"] = iat
-	claims["userId"] = userId
-	token := jwt.New(jwt.SigningMethodHS256)
-	token.Claims = claims
-	return token.SignedString([]byte(secretKey))
 }

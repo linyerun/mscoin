@@ -7,3 +7,7 @@ UserCenterRpcConf:
     Hosts:
       - 192.168.200.143:2379
     Key: usercenter.rpc
+
+JWT:
+  AccessSecret: "!@#$mscoin-yj"
+  AccessExpired: 604800
