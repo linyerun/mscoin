@@ -1,3 +1,6 @@
 package constant
 
-const RegisterCodeCacheKey = "RegisterCode::"
+const (
+	RegisterCodeCacheKey = "RegisterCode::"
+	WithdrawCodeCacheKey = "WithdrawCode::"
+)

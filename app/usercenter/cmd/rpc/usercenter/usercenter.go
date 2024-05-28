@@ -13,21 +13,36 @@ import (
 )
 
 type (
-	CaptchaReq         = pb.CaptchaReq
-	FindMemberByIdReq  = pb.FindMemberByIdReq
-	FindMemberByIdResp = pb.FindMemberByIdResp
-	LoginReq           = pb.LoginReq
-	LoginResp          = pb.LoginResp
-	RegisterReq        = pb.RegisterReq
-	RegisterResp       = pb.RegisterResp
-	SendCodeReq        = pb.SendCodeReq
-	SendCodeResp       = pb.SendCodeResp
+	AddressSimple           = pb.AddressSimple
+	CaptchaReq              = pb.CaptchaReq
+	Coin                    = pb.Coin
+	FindAddressByCoinIdReq  = pb.FindAddressByCoinIdReq
+	FindAddressByCoinIdResp = pb.FindAddressByCoinIdResp
+	FindMemberByIdReq       = pb.FindMemberByIdReq
+	FindMemberByIdResp      = pb.FindMemberByIdResp
+	LoginReq                = pb.LoginReq
+	LoginResp               = pb.LoginResp
+	RegisterReq             = pb.RegisterReq
+	RegisterResp            = pb.RegisterResp
+	SendCodeReq             = pb.SendCodeReq
+	SendCodeResp            = pb.SendCodeResp
+	WithdrawCodeReq         = pb.WithdrawCodeReq
+	WithdrawCodeResp        = pb.WithdrawCodeResp
+	WithdrawRecord          = pb.WithdrawRecord
+	WithdrawRecordReq       = pb.WithdrawRecordReq
+	WithdrawRecordResp      = pb.WithdrawRecordResp
+	WithdrawSendCodeReq     = pb.WithdrawSendCodeReq
+	WithdrawSendCodeResp    = pb.WithdrawSendCodeResp
 
 	Usercenter interface {
 		SendCode(ctx context.Context, in *SendCodeReq, opts ...grpc.CallOption) (*SendCodeResp, error)
 		Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 		FindMemberById(ctx context.Context, in *FindMemberByIdReq, opts ...grpc.CallOption) (*FindMemberByIdResp, error)
+		FindAddressByCoinId(ctx context.Context, in *FindAddressByCoinIdReq, opts ...grpc.CallOption) (*FindAddressByCoinIdResp, error)
+		WithdrawSendCode(ctx context.Context, in *WithdrawSendCodeReq, opts ...grpc.CallOption) (*WithdrawSendCodeResp, error)
+		WithdrawCode(ctx context.Context, in *WithdrawCodeReq, opts ...grpc.CallOption) (*WithdrawCodeResp, error)
+		WithdrawRecord(ctx context.Context, in *WithdrawRecordReq, opts ...grpc.CallOption) (*WithdrawRecordResp, error)
 	}
 
 	defaultUsercenter struct {
@@ -59,4 +74,24 @@ func (m *defaultUsercenter) Login(ctx context.Context, in *LoginReq, opts ...grp
 func (m *defaultUsercenter) FindMemberById(ctx context.Context, in *FindMemberByIdReq, opts ...grpc.CallOption) (*FindMemberByIdResp, error) {
 	client := pb.NewUsercenterClient(m.cli.Conn())
 	return client.FindMemberById(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) FindAddressByCoinId(ctx context.Context, in *FindAddressByCoinIdReq, opts ...grpc.CallOption) (*FindAddressByCoinIdResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.FindAddressByCoinId(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) WithdrawSendCode(ctx context.Context, in *WithdrawSendCodeReq, opts ...grpc.CallOption) (*WithdrawSendCodeResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.WithdrawSendCode(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) WithdrawCode(ctx context.Context, in *WithdrawCodeReq, opts ...grpc.CallOption) (*WithdrawCodeResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.WithdrawCode(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) WithdrawRecord(ctx context.Context, in *WithdrawRecordReq, opts ...grpc.CallOption) (*WithdrawRecordResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.WithdrawRecord(ctx, in, opts...)
 }

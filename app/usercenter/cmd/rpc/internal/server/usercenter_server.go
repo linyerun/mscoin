@@ -41,3 +41,23 @@ func (s *UsercenterServer) FindMemberById(ctx context.Context, in *pb.FindMember
 	l := logic.NewFindMemberByIdLogic(ctx, s.svcCtx)
 	return l.FindMemberById(in)
 }
+
+func (s *UsercenterServer) FindAddressByCoinId(ctx context.Context, in *pb.FindAddressByCoinIdReq) (*pb.FindAddressByCoinIdResp, error) {
+	l := logic.NewFindAddressByCoinIdLogic(ctx, s.svcCtx)
+	return l.FindAddressByCoinId(in)
+}
+
+func (s *UsercenterServer) WithdrawSendCode(ctx context.Context, in *pb.WithdrawSendCodeReq) (*pb.WithdrawSendCodeResp, error) {
+	l := logic.NewWithdrawSendCodeLogic(ctx, s.svcCtx)
+	return l.WithdrawSendCode(in)
+}
+
+func (s *UsercenterServer) WithdrawCode(ctx context.Context, in *pb.WithdrawCodeReq) (*pb.WithdrawCodeResp, error) {
+	l := logic.NewWithdrawCodeLogic(ctx, s.svcCtx)
+	return l.WithdrawCode(in)
+}
+
+func (s *UsercenterServer) WithdrawRecord(ctx context.Context, in *pb.WithdrawRecordReq) (*pb.WithdrawRecordResp, error) {
+	l := logic.NewWithdrawRecordLogic(ctx, s.svcCtx)
+	return l.WithdrawRecord(in)
+}

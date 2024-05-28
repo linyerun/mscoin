@@ -19,10 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Usercenter_SendCode_FullMethodName       = "/pb.usercenter/send_code"
-	Usercenter_Register_FullMethodName       = "/pb.usercenter/register"
-	Usercenter_Login_FullMethodName          = "/pb.usercenter/login"
-	Usercenter_FindMemberById_FullMethodName = "/pb.usercenter/find_member_by_id"
+	Usercenter_SendCode_FullMethodName            = "/pb.usercenter/SendCode"
+	Usercenter_Register_FullMethodName            = "/pb.usercenter/Register"
+	Usercenter_Login_FullMethodName               = "/pb.usercenter/Login"
+	Usercenter_FindMemberById_FullMethodName      = "/pb.usercenter/FindMemberById"
+	Usercenter_FindAddressByCoinId_FullMethodName = "/pb.usercenter/FindAddressByCoinId"
+	Usercenter_WithdrawSendCode_FullMethodName    = "/pb.usercenter/WithdrawSendCode"
+	Usercenter_WithdrawCode_FullMethodName        = "/pb.usercenter/WithdrawCode"
+	Usercenter_WithdrawRecord_FullMethodName      = "/pb.usercenter/WithdrawRecord"
 )
 
 // UsercenterClient is the client API for Usercenter service.
@@ -33,6 +37,10 @@ type UsercenterClient interface {
 	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 	FindMemberById(ctx context.Context, in *FindMemberByIdReq, opts ...grpc.CallOption) (*FindMemberByIdResp, error)
+	FindAddressByCoinId(ctx context.Context, in *FindAddressByCoinIdReq, opts ...grpc.CallOption) (*FindAddressByCoinIdResp, error)
+	WithdrawSendCode(ctx context.Context, in *WithdrawSendCodeReq, opts ...grpc.CallOption) (*WithdrawSendCodeResp, error)
+	WithdrawCode(ctx context.Context, in *WithdrawCodeReq, opts ...grpc.CallOption) (*WithdrawCodeResp, error)
+	WithdrawRecord(ctx context.Context, in *WithdrawRecordReq, opts ...grpc.CallOption) (*WithdrawRecordResp, error)
 }
 
 type usercenterClient struct {
@@ -79,6 +87,42 @@ func (c *usercenterClient) FindMemberById(ctx context.Context, in *FindMemberByI
 	return out, nil
 }
 
+func (c *usercenterClient) FindAddressByCoinId(ctx context.Context, in *FindAddressByCoinIdReq, opts ...grpc.CallOption) (*FindAddressByCoinIdResp, error) {
+	out := new(FindAddressByCoinIdResp)
+	err := c.cc.Invoke(ctx, Usercenter_FindAddressByCoinId_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usercenterClient) WithdrawSendCode(ctx context.Context, in *WithdrawSendCodeReq, opts ...grpc.CallOption) (*WithdrawSendCodeResp, error) {
+	out := new(WithdrawSendCodeResp)
+	err := c.cc.Invoke(ctx, Usercenter_WithdrawSendCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usercenterClient) WithdrawCode(ctx context.Context, in *WithdrawCodeReq, opts ...grpc.CallOption) (*WithdrawCodeResp, error) {
+	out := new(WithdrawCodeResp)
+	err := c.cc.Invoke(ctx, Usercenter_WithdrawCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usercenterClient) WithdrawRecord(ctx context.Context, in *WithdrawRecordReq, opts ...grpc.CallOption) (*WithdrawRecordResp, error) {
+	out := new(WithdrawRecordResp)
+	err := c.cc.Invoke(ctx, Usercenter_WithdrawRecord_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsercenterServer is the server API for Usercenter service.
 // All implementations must embed UnimplementedUsercenterServer
 // for forward compatibility
@@ -87,6 +131,10 @@ type UsercenterServer interface {
 	Register(context.Context, *RegisterReq) (*RegisterResp, error)
 	Login(context.Context, *LoginReq) (*LoginResp, error)
 	FindMemberById(context.Context, *FindMemberByIdReq) (*FindMemberByIdResp, error)
+	FindAddressByCoinId(context.Context, *FindAddressByCoinIdReq) (*FindAddressByCoinIdResp, error)
+	WithdrawSendCode(context.Context, *WithdrawSendCodeReq) (*WithdrawSendCodeResp, error)
+	WithdrawCode(context.Context, *WithdrawCodeReq) (*WithdrawCodeResp, error)
+	WithdrawRecord(context.Context, *WithdrawRecordReq) (*WithdrawRecordResp, error)
 	mustEmbedUnimplementedUsercenterServer()
 }
 
@@ -105,6 +153,18 @@ func (UnimplementedUsercenterServer) Login(context.Context, *LoginReq) (*LoginRe
 }
 func (UnimplementedUsercenterServer) FindMemberById(context.Context, *FindMemberByIdReq) (*FindMemberByIdResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindMemberById not implemented")
+}
+func (UnimplementedUsercenterServer) FindAddressByCoinId(context.Context, *FindAddressByCoinIdReq) (*FindAddressByCoinIdResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindAddressByCoinId not implemented")
+}
+func (UnimplementedUsercenterServer) WithdrawSendCode(context.Context, *WithdrawSendCodeReq) (*WithdrawSendCodeResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WithdrawSendCode not implemented")
+}
+func (UnimplementedUsercenterServer) WithdrawCode(context.Context, *WithdrawCodeReq) (*WithdrawCodeResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WithdrawCode not implemented")
+}
+func (UnimplementedUsercenterServer) WithdrawRecord(context.Context, *WithdrawRecordReq) (*WithdrawRecordResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WithdrawRecord not implemented")
 }
 func (UnimplementedUsercenterServer) mustEmbedUnimplementedUsercenterServer() {}
 
@@ -191,6 +251,78 @@ func _Usercenter_FindMemberById_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Usercenter_FindAddressByCoinId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindAddressByCoinIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).FindAddressByCoinId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_FindAddressByCoinId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).FindAddressByCoinId(ctx, req.(*FindAddressByCoinIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Usercenter_WithdrawSendCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WithdrawSendCodeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).WithdrawSendCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_WithdrawSendCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).WithdrawSendCode(ctx, req.(*WithdrawSendCodeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Usercenter_WithdrawCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WithdrawCodeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).WithdrawCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_WithdrawCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).WithdrawCode(ctx, req.(*WithdrawCodeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Usercenter_WithdrawRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WithdrawRecordReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).WithdrawRecord(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_WithdrawRecord_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).WithdrawRecord(ctx, req.(*WithdrawRecordReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Usercenter_ServiceDesc is the grpc.ServiceDesc for Usercenter service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -199,20 +331,36 @@ var Usercenter_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UsercenterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "send_code",
+			MethodName: "SendCode",
 			Handler:    _Usercenter_SendCode_Handler,
 		},
 		{
-			MethodName: "register",
+			MethodName: "Register",
 			Handler:    _Usercenter_Register_Handler,
 		},
 		{
-			MethodName: "login",
+			MethodName: "Login",
 			Handler:    _Usercenter_Login_Handler,
 		},
 		{
-			MethodName: "find_member_by_id",
+			MethodName: "FindMemberById",
 			Handler:    _Usercenter_FindMemberById_Handler,
+		},
+		{
+			MethodName: "FindAddressByCoinId",
+			Handler:    _Usercenter_FindAddressByCoinId_Handler,
+		},
+		{
+			MethodName: "WithdrawSendCode",
+			Handler:    _Usercenter_WithdrawSendCode_Handler,
+		},
+		{
+			MethodName: "WithdrawCode",
+			Handler:    _Usercenter_WithdrawCode_Handler,
+		},
+		{
+			MethodName: "WithdrawRecord",
+			Handler:    _Usercenter_WithdrawRecord_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

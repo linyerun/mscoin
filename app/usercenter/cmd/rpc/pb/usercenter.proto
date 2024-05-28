@@ -5,10 +5,17 @@ package pb;
 option go_package = "../pb";
 
 service usercenter {
-  rpc send_code(SendCodeReq) returns (SendCodeResp);
-  rpc register(RegisterReq) returns(RegisterResp);
-  rpc login(LoginReq) returns (LoginResp);
-  rpc find_member_by_id(FindMemberByIdReq) returns(FindMemberByIdResp);
+  rpc SendCode(SendCodeReq) returns (SendCodeResp);
+
+  rpc Register(RegisterReq) returns(RegisterResp);
+  rpc Login(LoginReq) returns (LoginResp);
+
+  rpc FindMemberById(FindMemberByIdReq) returns(FindMemberByIdResp);
+
+  rpc FindAddressByCoinId(FindAddressByCoinIdReq) returns(FindAddressByCoinIdResp);
+  rpc WithdrawSendCode(WithdrawSendCodeReq) returns (WithdrawSendCodeResp);
+  rpc WithdrawCode(WithdrawCodeReq) returns (WithdrawCodeResp);
+  rpc WithdrawRecord(WithdrawRecordReq) returns (WithdrawRecordResp);
 }
 
 message RegisterReq {
@@ -127,4 +134,119 @@ message FindMemberByIdResp {
   int32 teamLevel  = 62;
   double teamPower  = 63;
   int64 memberLevelId  = 64;
+}
+
+message FindAddressByCoinIdReq {
+  int64 coinId = 1;
+  string ip = 2;
+  int64 userId = 3;
+  string phone = 4;
+  string unit = 5;
+  string  address = 6;
+  double amount = 7;
+  double  fee = 8;
+  string jyPassword = 9;
+  string code = 10;
+  int64 page = 11;
+  int64 pageSize = 12;
+}
+
+message AddressSimple{
+  string remark = 1;
+  string address = 2;
+}
+
+message FindAddressByCoinIdResp {
+  repeated AddressSimple list = 1;
+}
+
+message WithdrawSendCodeReq {
+  string phone = 4;
+}
+
+message WithdrawSendCodeResp {}
+
+message WithdrawCodeReq {
+  int64 coinId = 1;
+  string ip = 2;
+  int64 userId = 3;
+  string phone = 4;
+  string unit = 5;
+  string  address = 6;
+  double amount = 7;
+  double  fee = 8;
+  string jyPassword = 9;
+  string code = 10;
+  int64 page = 11;
+  int64 pageSize = 12;
+}
+
+message WithdrawCodeResp {}
+
+message WithdrawRecordReq {
+  int64 coinId = 1;
+  string ip = 2;
+  int64 userId = 3;
+  string phone = 4;
+  string unit = 5;
+  string  address = 6;
+  double amount = 7;
+  double  fee = 8;
+  string jyPassword = 9;
+  string code = 10;
+  int64 page = 11;
+  int64 pageSize = 12;
+}
+
+message Coin{
+  int32 id  = 1;
+  string name  = 2;
+  int32 canAutoWithdraw  = 3;
+  int32 canRecharge  = 4;
+  int32 canTransfer  = 5;
+  int32 canWithdraw  = 6;
+  double cnyRate  = 7;
+  int32 enableRpc  = 8;
+  int32 isPlatformCoin  = 9;
+  double maxTxFee  = 10;
+  double maxWithdrawAmount  = 11;
+  double minTxFee  = 12;
+  double minWithdrawAmount  = 13;
+  string nameCn  = 14;
+  int32 sort  = 15;
+  int32 status  = 16;
+  string unit  = 17;
+  double usdRate  = 18;
+  double withdrawThreshold  = 19;
+  int32 hasLegal  = 20;
+  string coldWalletAddress  = 21;
+  double minerFee  = 22;
+  int32 withdrawScale  = 23;
+  int32 accountType  = 24;
+  string depositAddress  = 25;
+  string infoLink  = 26;
+  string information  = 27;
+  double minRechargeAmount  = 28;
+}
+
+message WithdrawRecord{
+  int64 id  = 1;
+  int64 memberId  = 2;
+  Coin coin  = 3;
+  double totalAmount  = 4;
+  double fee  = 5;
+  double arrivedAmount  = 6;
+  string address  = 7;
+  string remark  = 8;
+  string transactionNumber  = 9;
+  int32 canAutoWithdraw  = 10;
+  int32 isAuto  = 11;
+  int32 status  = 12;
+  string createTime  = 13;
+  string dealTime  = 14;
+}
+
+message WithdrawRecordResp {
+  repeated WithdrawRecord list = 1;
+  int64 total = 2;
 }
