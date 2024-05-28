@@ -20,6 +20,9 @@ service user_center_api {
 
 	@handler Login
 	post /login (LoginReq) returns (LoginResp)
+
+	@handler CheckLogin
+	post /check/login (CheckLoginReq) returns (CheckLoginResp)
 }
 
 type SendCodeReq {
@@ -60,5 +63,13 @@ type LoginResp {
 	LoginCount    int    `json:"loginCount"`
 	SuperPartner  string `json:"superPartner"`
 	MemberRate    int    `json:"memberRate"`
+}
+
+type CheckLoginReq {
+	Token string `json:"token"`
+}
+
+type CheckLoginResp {
+	IsValid bool `json:"isValid"`
 }
 

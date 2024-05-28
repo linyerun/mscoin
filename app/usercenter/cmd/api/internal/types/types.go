@@ -6,6 +6,14 @@ type Captcha struct {
 	Token  string `json:"token"`
 }
 
+type CheckLoginReq struct {
+	Token string `json:"token"`
+}
+
+type CheckLoginResp struct {
+	IsValid bool `json:"isValid"`
+}
+
 type LoginReq struct {
 	Username string   `json:"username"`
 	Password string   `json:"password"`

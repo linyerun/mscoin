@@ -11,6 +11,7 @@ const (
 	MobilePhoneExists       = 452
 	LoginError              = 453
 	FindInfoError           = 454
+	TokenInValidError       = 455
 
 	ServerError = 500
 
@@ -29,6 +30,7 @@ var codeToMsg = map[int]string{
 	RegisterError:           "注册失败",
 	LoginError:              "登录失败",
 	FindInfoError:           "信息不存在",
+	TokenInValidError:       "token失效",
 }
 
 type Error interface {
