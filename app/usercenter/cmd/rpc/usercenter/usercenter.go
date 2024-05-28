@@ -14,7 +14,7 @@ import (
 
 type (
 	AddressSimple           = pb.AddressSimple
-	CaptchaReq              = pb.CaptchaReq
+	Captcha                 = pb.Captcha
 	Coin                    = pb.Coin
 	FindAddressByCoinIdReq  = pb.FindAddressByCoinIdReq
 	FindAddressByCoinIdResp = pb.FindAddressByCoinIdResp

@@ -36,8 +36,15 @@ type LoginResp struct {
 }
 
 type RegisterReq struct {
-	Phone   string `json:"phone"`
-	Country string `json:"country"`
+	Username     string   `json:"username,optional"`
+	Password     string   `json:"password,optional"`
+	Captcha      *Captcha `json:"captcha,optional"`
+	Phone        string   `json:"phone,optional"`
+	Promotion    string   `json:"promotion,optional"`
+	Code         string   `json:"code,optional"`
+	Country      string   `json:"country,optional"`
+	SuperPartner string   `json:"superPartner,optional"`
+	Ip           string   `json:"ip,optional"`
 }
 
 type RegisterResp struct {

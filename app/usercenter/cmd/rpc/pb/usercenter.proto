@@ -21,7 +21,7 @@ service usercenter {
 message RegisterReq {
   string username = 1;
   string password = 2;
-  CaptchaReq captcha = 3;
+  Captcha captcha = 3;
   string phone = 4;
   string promotion = 5;
   string code = 6;
@@ -30,7 +30,7 @@ message RegisterReq {
   string ip = 9;
 }
 
-message CaptchaReq {
+message Captcha {
   string server = 1;
   string token = 2;
 }
@@ -47,7 +47,7 @@ message SendCodeResp {}
 message LoginReq {
   string username = 1;
   string password = 2;
-  CaptchaReq captcha = 3;
+  Captcha captcha = 3;
   string ip = 4;
 }
 
