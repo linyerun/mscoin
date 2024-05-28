@@ -26,10 +26,10 @@ func NewSendCodeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SendCode
 }
 
 func (l *SendCodeLogic) SendCode(req *types.SendCodeReq) (resp *types.SendCodeResp, err error) {
-	// 执行远程调用，发送短信
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
+	// 执行远程调用，发送短信
 	_, err = l.svcCtx.UserCenterRpc.SendCode(ctx, &usercenter.SendCodeReq{
 		Phone:   req.Phone,
 		Country: req.Country,
