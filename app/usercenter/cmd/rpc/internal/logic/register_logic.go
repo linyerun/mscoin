@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
-	"mscoin/app/usercenter/cmd/rpc/internal/model"
+	"mscoin/app/usercenter/model"
 	"mscoin/common/constant"
 	"mscoin/common/tool"
 	"mscoin/common/xerr"

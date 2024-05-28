@@ -5,7 +5,7 @@ import (
 	"github.com/jinzhu/copier"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
-	"mscoin/app/usercenter/cmd/rpc/internal/model"
+	"mscoin/app/usercenter/model"
 	"mscoin/common/xerr"
 
 	"mscoin/app/usercenter/cmd/rpc/internal/svc"

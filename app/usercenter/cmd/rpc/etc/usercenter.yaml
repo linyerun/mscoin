@@ -1,17 +1,22 @@
 Name: usercenter.rpc
 ListenOn: 0.0.0.0:8081
+
 Etcd:
   Hosts:
-  - 192.168.200.143:2379
+    - 192.168.200.143:2379
   Key: usercenter.rpc
+
 Mysql:
   DataSource: root:root@tcp(192.168.200.143:3309)/mscoin?charset=utf8mb4&parseTime=true&loc=Asia/Shanghai
+
 CacheRedis:
   - Host: 192.168.200.143:6379
     Type: node
+
 Captcha:
   Vid: "xxx"
   Key: "xxx"
+
 JWT:
   AccessSecret: "!@#$mscoin-yj"
   AccessExpired: 604800

@@ -1,12 +1,12 @@
 package handler
 
 import (
-	"net/http"
-
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"mscoin/app/usercenter/cmd/api/internal/logic"
 	"mscoin/app/usercenter/cmd/api/internal/svc"
 	"mscoin/app/usercenter/cmd/api/internal/types"
+	"net/http"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func SendCodeHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

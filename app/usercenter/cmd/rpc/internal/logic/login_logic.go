@@ -5,7 +5,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
-	"mscoin/app/usercenter/cmd/rpc/internal/model"
+	"mscoin/app/usercenter/model"
 	"mscoin/common/tool"
 	"mscoin/common/xerr"
 	"time"

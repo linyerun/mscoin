@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"mscoin/app/usercenter/cmd/api/internal/config"
 	"mscoin/app/usercenter/cmd/api/internal/handler"
 	"mscoin/app/usercenter/cmd/api/internal/svc"

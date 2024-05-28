@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-
 	"mscoin/app/usercenter/cmd/api/internal/svc"
 	"mscoin/app/usercenter/cmd/api/internal/types"
 

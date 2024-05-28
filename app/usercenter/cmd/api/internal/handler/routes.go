@@ -2,9 +2,8 @@
 package handler
 
 import (
-	"net/http"
-
 	"mscoin/app/usercenter/cmd/api/internal/svc"
+	"net/http"
 
 	"github.com/zeromicro/go-zero/rest"
 )

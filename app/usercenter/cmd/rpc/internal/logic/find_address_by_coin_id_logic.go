@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 	"github.com/jinzhu/copier"
-	"mscoin/app/usercenter/cmd/rpc/internal/model"
+	"mscoin/app/usercenter/model"
 	"mscoin/common/xerr"
 
 	"mscoin/app/usercenter/cmd/rpc/internal/svc"
