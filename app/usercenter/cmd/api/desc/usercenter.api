@@ -17,19 +17,48 @@ service user_center_api {
 
 	@handler Register
 	post /register/phone (RegisterReq) returns (RegisterResp)
+
+	@handler Login
+	post /login (LoginReq) returns (LoginResp)
 }
 
 type SendCodeReq {
-	phone   string `json:"phone"`
-	country string `json:"country"`
+	Phone   string `json:"phone"`
+	Country string `json:"country"`
 }
 
 type SendCodeResp {}
 
 type RegisterReq {
-	phone   string `json:"phone"`
-	country string `json:"country"`
+	Phone   string `json:"phone"`
+	Country string `json:"country"`
 }
 
 type RegisterResp {}
+
+type Captcha {
+	Server string `json:"server"`
+	Token  string `json:"token"`
+}
+
+type LoginReq {
+	Username string   `json:"username"`
+	Password string   `json:"password"`
+	Captcha  *Captcha `json:"captcha,optional"`
+	Ip       string   `json:"ip,optional"`
+}
+
+type LoginResp {
+	Username      string `json:"username"`
+	Token         string `json:"token"`
+	MemberLevel   string `json:"memberLevel"`
+	RealName      string `json:"realName"`
+	Country       string `json:"country"`
+	Avatar        string `json:"avatar"`
+	PromotionCode string `json:"promotionCode"`
+	Id            int64  `json:"id"`
+	LoginCount    int    `json:"loginCount"`
+	SuperPartner  string `json:"superPartner"`
+	MemberRate    int    `json:"memberRate"`
+}
 
