@@ -2,8 +2,9 @@
 package handler
 
 import (
-	"mscoin/app/usercenter/cmd/api/internal/svc"
 	"net/http"
+
+	"mscoin/app/usercenter/cmd/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )
@@ -15,6 +16,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/mobile/code",
 				Handler: SendCodeHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/register/phone",
+				Handler: RegisterHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/uc"),

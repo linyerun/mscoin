@@ -14,6 +14,9 @@ info (
 service user_center_api {
 	@handler SendCode
 	post /mobile/code (SendCodeReq) returns (SendCodeResp)
+
+	@handler Register
+	post /register/phone (RegisterReq) returns (RegisterResp)
 }
 
 type SendCodeReq {
@@ -22,4 +25,11 @@ type SendCodeReq {
 }
 
 type SendCodeResp {}
+
+type RegisterReq {
+	phone   string `json:"phone"`
+	country string `json:"country"`
+}
+
+type RegisterResp {}
 

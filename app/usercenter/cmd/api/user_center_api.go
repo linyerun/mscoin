@@ -3,12 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/conf"
+	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"mscoin/app/usercenter/cmd/api/internal/config"
 	"mscoin/app/usercenter/cmd/api/internal/handler"
 	"mscoin/app/usercenter/cmd/api/internal/svc"
-
-	"github.com/zeromicro/go-zero/core/conf"
-	"github.com/zeromicro/go-zero/rest"
+	"mscoin/common/interceptor/httpinterceptor"
 )
 
 var configFile = flag.String("f", "etc/user_center_api.yaml", "the config file")
@@ -24,6 +25,12 @@ func main() {
 
 	ctx := svc.NewServiceContext(c)
 	handler.RegisterHandlers(server, ctx)
+
+	// 配置全局成功处理
+	httpx.SetOkHandler(httpinterceptor.OkInterceptor)
+
+	// 配置全局异常处理
+	httpx.SetErrorHandler(httpinterceptor.ErrorInterceptor)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()
