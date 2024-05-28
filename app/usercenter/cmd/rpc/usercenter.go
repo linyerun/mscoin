@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
+	"mscoin/common/interceptor/grpcinterceptor"
 
 	"mscoin/app/usercenter/cmd/rpc/internal/config"
 	"mscoin/app/usercenter/cmd/rpc/internal/server"
@@ -37,6 +38,9 @@ func main() {
 		}
 	})
 	defer s.Stop()
+
+	// 配置grpc拦截器
+	s.AddUnaryInterceptors(grpcinterceptor.GlobalInterceptor)
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()

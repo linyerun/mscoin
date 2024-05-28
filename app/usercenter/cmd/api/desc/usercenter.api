@@ -1,9 +1,25 @@
 syntax = "v1"
 
-info(
-    title: "user center api"
-    desc: "user center api"
-    author: "Ernie"
-    email: "linyerun0620@qq.com"
-    version: "v1"
+info (
+	title:   "user center api"
+	desc:    "user center api"
+	author:  "Ernie"
+	email:   "linyerun0620@qq.com"
+	version: "v1"
 )
+
+@server (
+	prefix: /uc
+)
+service user_center_api {
+	@handler SendCode
+	post /mobile/code (SendCodeReq) returns (SendCodeResp)
+}
+
+type SendCodeReq {
+	phone   string `json:"phone"`
+	country string `json:"country"`
+}
+
+type SendCodeResp {}
+

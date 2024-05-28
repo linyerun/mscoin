@@ -22,7 +22,22 @@ func NewUsercenterServer(svcCtx *svc.ServiceContext) *UsercenterServer {
 	}
 }
 
+func (s *UsercenterServer) SendCode(ctx context.Context, in *pb.SendCodeReq) (*pb.SendCodeResp, error) {
+	l := logic.NewSendCodeLogic(ctx, s.svcCtx)
+	return l.SendCode(in)
+}
+
 func (s *UsercenterServer) Register(ctx context.Context, in *pb.RegisterReq) (*pb.RegisterResp, error) {
 	l := logic.NewRegisterLogic(ctx, s.svcCtx)
 	return l.Register(in)
+}
+
+func (s *UsercenterServer) Login(ctx context.Context, in *pb.LoginReq) (*pb.LoginResp, error) {
+	l := logic.NewLoginLogic(ctx, s.svcCtx)
+	return l.Login(in)
+}
+
+func (s *UsercenterServer) FindMemberById(ctx context.Context, in *pb.FindMemberByIdReq) (*pb.FindMemberByIdResp, error) {
+	l := logic.NewFindMemberByIdLogic(ctx, s.svcCtx)
+	return l.FindMemberById(in)
 }

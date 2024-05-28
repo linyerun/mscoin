@@ -19,14 +19,20 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Usercenter_Register_FullMethodName = "/pb.usercenter/register"
+	Usercenter_SendCode_FullMethodName       = "/pb.usercenter/send_code"
+	Usercenter_Register_FullMethodName       = "/pb.usercenter/register"
+	Usercenter_Login_FullMethodName          = "/pb.usercenter/login"
+	Usercenter_FindMemberById_FullMethodName = "/pb.usercenter/find_member_by_id"
 )
 
 // UsercenterClient is the client API for Usercenter service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsercenterClient interface {
+	SendCode(ctx context.Context, in *SendCodeReq, opts ...grpc.CallOption) (*SendCodeResp, error)
 	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
+	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
+	FindMemberById(ctx context.Context, in *FindMemberByIdReq, opts ...grpc.CallOption) (*FindMemberByIdResp, error)
 }
 
 type usercenterClient struct {
@@ -35,6 +41,15 @@ type usercenterClient struct {
 
 func NewUsercenterClient(cc grpc.ClientConnInterface) UsercenterClient {
 	return &usercenterClient{cc}
+}
+
+func (c *usercenterClient) SendCode(ctx context.Context, in *SendCodeReq, opts ...grpc.CallOption) (*SendCodeResp, error) {
+	out := new(SendCodeResp)
+	err := c.cc.Invoke(ctx, Usercenter_SendCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *usercenterClient) Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error) {
@@ -46,11 +61,32 @@ func (c *usercenterClient) Register(ctx context.Context, in *RegisterReq, opts .
 	return out, nil
 }
 
+func (c *usercenterClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
+	out := new(LoginResp)
+	err := c.cc.Invoke(ctx, Usercenter_Login_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usercenterClient) FindMemberById(ctx context.Context, in *FindMemberByIdReq, opts ...grpc.CallOption) (*FindMemberByIdResp, error) {
+	out := new(FindMemberByIdResp)
+	err := c.cc.Invoke(ctx, Usercenter_FindMemberById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsercenterServer is the server API for Usercenter service.
 // All implementations must embed UnimplementedUsercenterServer
 // for forward compatibility
 type UsercenterServer interface {
+	SendCode(context.Context, *SendCodeReq) (*SendCodeResp, error)
 	Register(context.Context, *RegisterReq) (*RegisterResp, error)
+	Login(context.Context, *LoginReq) (*LoginResp, error)
+	FindMemberById(context.Context, *FindMemberByIdReq) (*FindMemberByIdResp, error)
 	mustEmbedUnimplementedUsercenterServer()
 }
 
@@ -58,8 +94,17 @@ type UsercenterServer interface {
 type UnimplementedUsercenterServer struct {
 }
 
+func (UnimplementedUsercenterServer) SendCode(context.Context, *SendCodeReq) (*SendCodeResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendCode not implemented")
+}
 func (UnimplementedUsercenterServer) Register(context.Context, *RegisterReq) (*RegisterResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (UnimplementedUsercenterServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedUsercenterServer) FindMemberById(context.Context, *FindMemberByIdReq) (*FindMemberByIdResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindMemberById not implemented")
 }
 func (UnimplementedUsercenterServer) mustEmbedUnimplementedUsercenterServer() {}
 
@@ -72,6 +117,24 @@ type UnsafeUsercenterServer interface {
 
 func RegisterUsercenterServer(s grpc.ServiceRegistrar, srv UsercenterServer) {
 	s.RegisterService(&Usercenter_ServiceDesc, srv)
+}
+
+func _Usercenter_SendCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendCodeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).SendCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_SendCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).SendCode(ctx, req.(*SendCodeReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Usercenter_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -92,6 +155,42 @@ func _Usercenter_Register_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Usercenter_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_Login_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).Login(ctx, req.(*LoginReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Usercenter_FindMemberById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindMemberByIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).FindMemberById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_FindMemberById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).FindMemberById(ctx, req.(*FindMemberByIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Usercenter_ServiceDesc is the grpc.ServiceDesc for Usercenter service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -100,8 +199,20 @@ var Usercenter_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UsercenterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "send_code",
+			Handler:    _Usercenter_SendCode_Handler,
+		},
+		{
 			MethodName: "register",
 			Handler:    _Usercenter_Register_Handler,
+		},
+		{
+			MethodName: "login",
+			Handler:    _Usercenter_Login_Handler,
+		},
+		{
+			MethodName: "find_member_by_id",
+			Handler:    _Usercenter_FindMemberById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

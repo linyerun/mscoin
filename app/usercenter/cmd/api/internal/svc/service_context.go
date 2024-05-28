@@ -1,6 +1,8 @@
 package svc
 
-import "mscoin/app/usercenter/cmd/rpc/internal/config"
+import (
+	"mscoin/app/usercenter/cmd/api/internal/config"
+)
 
 type ServiceContext struct {
 	Config config.Config
