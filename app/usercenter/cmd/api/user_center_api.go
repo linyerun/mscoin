@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/conf"
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"mscoin/app/usercenter/cmd/api/internal/config"
@@ -16,6 +17,9 @@ var configFile = flag.String("f", "app/usercenter/cmd/api/etc/user_center_api.ya
 
 func main() {
 	flag.Parse()
+
+	// 防止打印过多的日志
+	logx.MustSetup(logx.LogConf{Encoding: "plain", Stat: false})
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
