@@ -3,11 +3,12 @@ ListenOn: 0.0.0.0:8081
 
 Etcd:
   Hosts:
-    - 192.168.200.143:2379
+    - 127.0.0.1:2379
   Key: usercenter.rpc
 
+# %2F要是换成/就会失败, 非常的神奇啊
 Mysql:
-  DataSource: root:root@tcp(192.168.200.143:3309)/mscoin?charset=utf8mb4&parseTime=true&loc=Asia/Shanghai
+  DataSource: root:root@tcp(192.168.200.143:3309)/mscoin?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 
 CacheRedis:
   - Host: 192.168.200.143:6379

@@ -1,11 +1,11 @@
 Name: user_center_api
 Host: 0.0.0.0
-Port: 8888
+Port: 9999
 
 UserCenterRpcConf:
   Etcd:
     Hosts:
-      - 192.168.200.143:2379
+      - 127.0.0.1:2379
     Key: usercenter.rpc
 
 JWT:

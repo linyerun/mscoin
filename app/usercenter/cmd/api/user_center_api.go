@@ -12,7 +12,7 @@ import (
 	"mscoin/common/interceptor/httpinterceptor"
 )
 
-var configFile = flag.String("f", "etc/user_center_api.yaml", "the config file")
+var configFile = flag.String("f", "app/usercenter/cmd/api/etc/user_center_api.yaml", "the config file")
 
 func main() {
 	flag.Parse()

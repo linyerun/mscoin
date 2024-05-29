@@ -1,0 +1,310 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "user center api",
+    "description": "user center api",
+    "version": "v1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/uc/check/login": {
+      "post": {
+        "operationId": "CheckLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CheckLoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckLoginReq"
+            }
+          }
+        ],
+        "tags": [
+          "user_center_api"
+        ]
+      }
+    },
+    "/uc/login": {
+      "post": {
+        "operationId": "Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "tags": [
+          "user_center_api"
+        ]
+      }
+    },
+    "/uc/mobile/code": {
+      "post": {
+        "operationId": "SendCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SendCodeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " req, resp",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendCodeReq"
+            }
+          }
+        ],
+        "tags": [
+          "user_center_api"
+        ]
+      }
+    },
+    "/uc/register/phone": {
+      "post": {
+        "operationId": "Register",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegisterResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterReq"
+            }
+          }
+        ],
+        "tags": [
+          "user_center_api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Captcha": {
+      "type": "object",
+      "properties": {
+        "server": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "Captcha",
+      "required": [
+        "server",
+        "token"
+      ]
+    },
+    "CheckLoginReq": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "CheckLoginReq",
+      "required": [
+        "token"
+      ]
+    },
+    "CheckLoginResp": {
+      "type": "object",
+      "properties": {
+        "isValid": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "CheckLoginResp",
+      "required": [
+        "isValid"
+      ]
+    },
+    "LoginReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "captcha": {
+          "$ref": "#/definitions/Captcha"
+        },
+        "ip": {
+          "type": "string"
+        }
+      },
+      "title": "LoginReq",
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "LoginResp": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "memberLevel": {
+          "type": "string"
+        },
+        "realName": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "promotionCode": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "loginCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "superPartner": {
+          "type": "string"
+        },
+        "memberRate": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "LoginResp",
+      "required": [
+        "username",
+        "token",
+        "memberLevel",
+        "realName",
+        "country",
+        "avatar",
+        "promotionCode",
+        "id",
+        "loginCount",
+        "superPartner",
+        "memberRate"
+      ]
+    },
+    "RegisterReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "captcha": {
+          "$ref": "#/definitions/Captcha"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "promotion": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "superPartner": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        }
+      },
+      "title": "RegisterReq"
+    },
+    "RegisterResp": {
+      "type": "object",
+      "title": "RegisterResp"
+    },
+    "SendCodeReq": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      },
+      "title": "SendCodeReq",
+      "required": [
+        "phone",
+        "country"
+      ]
+    },
+    "SendCodeResp": {
+      "type": "object",
+      "title": "SendCodeResp"
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}
