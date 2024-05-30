@@ -1,0 +1,119 @@
+version: '3'
+services:
+  zk01:
+    image: zookeeper:3.8.2
+    container_name: zk01
+    restart: always
+    ports:
+      - "62181:2181"
+    networks:
+      - zk_kafka_cluster_net
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zk01:2888:3888;2181 server.2=zk02:2888:3888;2181 server.3=zk03:2888:3888;2181
+      ZOO_MAX_CLIENT_CNXNS: 1000  # 一个客户端能够连接到同一个服务器上的最大连接数，根据IP来区分
+
+  zk02:
+    image: zookeeper:3.8.2
+    container_name: zk02
+    restart: always
+    ports:
+      - "52181:2181"
+    networks:
+      - zk_kafka_cluster_net
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zk01:2888:3888;2181 server.2=zk02:2888:3888;2181 server.3=zk03:2888:3888;2181
+      ZOO_MAX_CLIENT_CNXNS: 1000  # 一个客户端能够连接到同一个服务器上的最大连接数，根据IP来区分
+
+  zk03:
+    image: zookeeper:3.8.2
+    container_name: zk03
+    restart: always
+    ports:
+      - "42181:2181"
+    networks:
+      - zk_kafka_cluster_net
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zk01:2888:3888;2181 server.2=zk02:2888:3888;2181 server.3=zk03:2888:3888;2181
+      ZOO_MAX_CLIENT_CNXNS: 1000  # 一个客户端能够连接到同一个服务器上的最大连接数，根据IP来区分
+
+  # 因为go写的客户端需要用到kafka服务端的地址和对应的ip, 然后我们本地又与kafka集群不在一个网段, 所以只能是配置虚拟机ip和映射端口到kafka中了
+
+  kafka01:
+    image: bitnami/kafka:3.0.0
+    container_name: kafka01
+    hostname: kafka01
+    privileged: true
+    networks:
+      - zk_kafka_cluster_net
+    ports:
+      - "39092:9092"
+      - "39093:9093"
+    restart: always
+    depends_on:
+      - zk01
+      - zk02
+      - zk03
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zk01:2181,zk02:2181,zk03:2181/kafka
+      - KAFKA_BROKER_ID=1
+      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://192.168.200.134:39092,EXTERNAL://192.168.200.134:39093
+      - KAFKA_CFG_LISTENERS=CLIENT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+      - ALLOW_PLAINTEXT_LISTENER=yes
+
+  kafka02:
+    image: bitnami/kafka:3.0.0
+    container_name: kafka02
+    hostname: kafka02
+    privileged: true
+    networks:
+      - zk_kafka_cluster_net
+    ports:
+      - "49092:9092"
+      - "49093:9093"
+    restart: always
+    depends_on:
+      - zk01
+      - zk02
+      - zk03
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zk01:2181,zk02:2181,zk03:2181/kafka
+      - KAFKA_BROKER_ID=2
+      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://192.168.200.134:49092,EXTERNAL://192.168.200.134:49093
+      - KAFKA_CFG_LISTENERS=CLIENT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+      - ALLOW_PLAINTEXT_LISTENER=yes
+
+  kafka03:
+    image: bitnami/kafka:3.0.0
+    container_name: kafka03
+    hostname: kafka03
+    privileged: true
+    networks:
+      - zk_kafka_cluster_net
+    ports:
+      - "59092:9092"
+      - "59093:9093"
+    restart: always
+    depends_on:
+      - zk01
+      - zk02
+      - zk03
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zk01:2181,zk02:2181,zk03:2181/kafka
+      - KAFKA_BROKER_ID=3
+      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://192.168.200.134:59092,EXTERNAL://192.168.200.134:59093
+      - KAFKA_CFG_LISTENERS=CLIENT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+      - ALLOW_PLAINTEXT_LISTENER=yes
+
+networks:
+  zk_kafka_cluster_net:
+    # external: 外部的. 使用docker network create创建好的网络, 名字就是zk_kafka_cluster_net
+    external: true
