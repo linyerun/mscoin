@@ -1,7 +1,7 @@
 version: '3'
 services:
   etcd01:
-    image: bitnami/etcd:3.8.2
+    image: bitnami/etcd:3.5.6
     container_name: etcd01
     restart: always
     networks:
@@ -20,7 +20,7 @@ services:
       - ETCD_INITIAL_CLUSTER=etcd1=http://etcd01:2380,etcd2=http://etcd02:2380,etcd3=http://etcd03:2380 # 为启动初始化集群配置
       - ETCD_INITIAL_CLUSTER_STATE=new                                                                  # 初始化集群状态
   etcd02:
-    image: bitnami/etcd:3.8.2
+    image: bitnami/etcd:3.5.6
     container_name: etcd02
     restart: always
     networks:
@@ -39,7 +39,7 @@ services:
       - ETCD_INITIAL_CLUSTER=etcd1=http://etcd012380,etcd2=http://etcd02:2380,etcd3=http://etcd03:2380 # 为启动初始化集群配置
       - ETCD_INITIAL_CLUSTER_STATE=new                                                                 # 初始化集群状态
   etcd03:
-    image: bitnami/etcd:3.8.2
+    image: bitnami/etcd:3.5.6
     container_name: etcd03
     restart: always
     networks:
