@@ -1,0 +1,18 @@
+KLineConf:
+  ApiKey: "c85180f4-6867-4fb8-9368-ae7837bf7688"
+  SecretKey: "2EB71293D8298FCB745FAA4EEA632C99"
+  Pass: "aaBB11!!"
+  Host: "https://www.okx.com"
+  Proxy: "http://localhost:7897"
+
+Mongo:
+  Url: "mongodb://192.168.200.143:27018"
+  Username: "root"
+  Password: "root"
+  Database: "mscoin"
+
+Kafka:
+  Addresses:
+    - 192.168.200.143:39092
+    - 192.168.200.143:49092
+    - 192.168.200.143:59092
